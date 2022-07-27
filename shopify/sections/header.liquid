@@ -1,0 +1,85 @@
+<header class="bg-white">
+  <nav class="flex items-center justify-between px-20 py-2">
+    <!-- Theme Branding & Primary Menu -->
+    <div class="flex items-center space-x-3">
+      <!-- Toggle Button -->
+      <button class="block px-2 py-2 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg></button>
+      <!-- Logo -->
+      <a href="{{ routes.root_url }}" class="block px-2 py-2" title="{{ shop.name }}">
+        <img src="https://cdn.shopify.com/s/files/1/0509/6698/6921/files/Untitled-2_e369452a-8b16-49ba-ab1f-ac5eb1178981_100x.png?v=1614059723" alt="">
+      </a>
+      <!-- Collapseable Mobile Primary Menu -->
+      <div class="flex items-center">
+        <!-- Desktop Primary Menu -->
+        <div id="desktop-primary-menu">
+          <!-- Render Desktop A Primary Layout Menu Component -->
+          {% render 'layout-primary-menu' %}
+        </div>
+        <!-- Mobile Primary Menu -->
+        <div id="mobile-primary-menu">
+          <!-- Render Mobile A Primary Layout Menu Component -->
+          {% render 'layout-primary-mobile-menu' %}
+        </div>
+      </div>
+    </div>
+    <!-- Secondary Menu -->
+    <div class="flex items-center space-x-3">
+      <!-- Call To Action Button & Text Links -->
+      <ul class="flex items-center space-x-2">
+        <li><a href="" class="block px-6 py-2 text-white bg-black">Call To Action Button</a></li>
+      </ul>
+      <!-- Icon Primary Menu -->
+      <ul class="flex items-center space-x-2">
+        {% render 'main-cart-dropdown' %}
+        <!-- Search Icon -->
+        <!-- <li><a href=""><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></a></li> -->
+      </ul>
+      <ul>
+        <li>
+          <button class="flex items-center px-2 py-2">
+            <img class="w-12 border rounded-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBcg5OV7m4Ojt-6P7o0JwzgBcZosZwisJw0A&usqp=CAU" alt="">
+            <!-- <span class="block pl-2">Username</span> -->
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<div class="container">
+  <a href="{{ routes.root_url }}">
+    Logo
+  </a>
+
+  {% render 'layout-menu' %}
+
+  <div>
+    {% if shop.customer_accounts_enabled %}
+      {% if customer %}
+        <a href="{{ routes.account_url }}">
+          {{ 'action.account' | t }}
+        </a>
+        {{ 'action.log_out' | t | customer_logout_link }}
+      {% else %}
+        {{ 'action.log_in' | t | customer_login_link }}
+        {{ 'action.register' | t | customer_register_link }}
+      {% endif %}
+    {% endif %}
+
+    <a href="{{ routes.cart_url }}">
+      {{ 'action.cart' | t }}
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.header.settings.paragraph"
+    }
+  ]
+}
+{% endschema %}
